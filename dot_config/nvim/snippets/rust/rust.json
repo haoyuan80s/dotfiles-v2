@@ -1,0 +1,30 @@
+{
+  "region": {
+    "prefix": "#region",
+    "body": "// region:   --- ${1:name}\n\n// endregion: --- ${1:name}\n"
+  },
+  "dummy error": {
+    "prefix": "#dummy_error",
+    "body": "// region:   --- error\npub type Result<T> = std::result::Result<T, Error>;\npub type Error = Box<dyn std::error::Error + Send + Sync + 'static>;\n// endregion: --- error\n"
+  },
+  "error region": {
+    "prefix": "#error_region",
+    "body": "// region:   --- error\nuse derive_more::{Error, From};\n\npub type Result<T> = std::result::Result<T, Error>;\n\n#[derive(Debug, From, Error)]\npub enum Error {\n    #[from]\n    Anyhow(anyhow::Error),\n}\n\nimpl std::fmt::Display for Error {\n    fn fmt(&self, fmt: &mut std::fmt::Formatter) -> std::result::Result<(), std::fmt::Error> {\n        write!(fmt, \"{self:?}\")\n    }\n}\n// endregion: --- error\n"
+  },
+  "error from": {
+    "prefix": "#error_from",
+    "body": "\nimpl From<${1:module}::Error> for Error {\n    fn from(err: ${1:module}::Error) -> Self {\n        Self::${2:Variant}(err)\n    }\n}\n// endregion: --- error\n"
+  },
+  "test async": {
+    "prefix": "#test_async",
+    "body": "#[tokio::test]\nasync fn ${1:test_name}() {\n    ${2:todo!()}\n}\n        "
+  },
+  "test": {
+    "prefix": "#test",
+    "body": "#[test]\nfn ${1:test_name}() {\n    ${2:todo!()}\n}\n        "
+  },
+  "test region": {
+    "prefix": "#test_region",
+    "body": "#[cfg(test)]\nmod tests {\n    #[allow(unused)]\n    use super::*;\n\n    #[test]\n    fn ${1:test_name}() {\n        ${2:todo!()}\n    }\n}\n        "
+  }
+}

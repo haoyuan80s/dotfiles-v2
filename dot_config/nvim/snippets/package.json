@@ -1,0 +1,17 @@
+{
+  "name": "my cool snippets",
+  "version": "1.0.0",
+  "description": "my cool snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "rust",
+        "path": "./rust/rust.json"
+      },
+      {
+        "language": "swift",
+        "path": "./swift/swift.json"
+      }
+    ]
+  }
+}

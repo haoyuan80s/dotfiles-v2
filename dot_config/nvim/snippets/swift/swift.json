@@ -1,0 +1,36 @@
+{
+  "debug view": {
+    "prefix": "snip_debug_view",
+    "body": "\nimport SwiftUI\nstruct DebugView: View {\n    var body: some View {\n        Text(\"Debuging...\")\n            .onAppear {}\n    }\n}\n\n#Preview {\n    DebugView()\n}\n"
+  },
+  "region": {
+    "prefix": "snip_region",
+    "body": "\n// region:   --- ${1:name}\n\n// endregion: --- ${1:name}\n",
+    "description": "region"
+  },
+  "alert": {
+    "prefix": "snip_alert",
+    "body": "\nstruct AlertItem: Identifiable {\n    let id = UUID()\n    let title: Text\n    let message: Text\n    let dismissButton: Alert.Button\n}\n\nstruct AlertContext {\n    static let invalidData = AlertItem(title: Text(\"Server Error\"),\n                                       message: Text(\"The data received from the server was invalid. Please contact support.\"),\n                                       dismissButton: .default(Text(\"OK\")))\n    \n    static let invalidResponse = AlertItem(title: Text(\"Server Error\"),\n                                       message: Text(\"Invalid response from the server. Please try again later or contact support.\"),\n                                       dismissButton: .default(Text(\"OK\")))\n    \n    static let invalidURL = AlertItem(title: Text(\"Server Error\"),\n                                       message: Text(\"There was an issue connecting to the server. If this persists, please contact support.\"),\n                                       dismissButton: .default(Text(\"OK\")))\n    \n    static let unableToComplete = AlertItem(title: Text(\"Server Error\"),\n                                       message: Text(\"Unable to complete your request at this time. Please check your internet connection.\"),\n                                       dismissButton: .default(Text(\"OK\")))\n}\n",
+    "description": "alert"
+  },
+  "view": {
+    "prefix": "snip_vw",
+    "body": "\nstruct ${1:Name}: View {\n    var body: some View {\n        Text(\"Hello, World!\")\n    }\n}\n",
+    "description": "view"
+  },
+  "view file": {
+    "prefix": "snip_vwf",
+    "body": "\nimport SwiftUI\n\nstruct ${1:Name}: View {\n    var body: some View {\n        Text(\"Hello, World!\")\n    }\n}\n\n#Preview {\n    ${1:Name}()\n}\n",
+    "description": "view file"
+  },
+  "view model": {
+    "prefix": "snip_vwmf",
+    "body": "\nimport SwiftUI\n\nfinal class ${1:Name}: ObservableObject {\n    @Published var ${varName}\n}\n",
+    "description": "view model file"
+  },
+  "valid email": {
+    "prefix": "snip_validate_eamil",
+    "body": "\nimport Foundation\n\nextension String {\n    var isValidEmail: Bool {\n        let emailRegEx = \"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}\"\n        let emailPredicate = NSPredicate(format: \"SELF MATCHES %@\", emailRegEx)\n        return emailPredicate.evaluate(with: self)\n    }\n}\n",
+    "description": "validate email"
+  }
+}
