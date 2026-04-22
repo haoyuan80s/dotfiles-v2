@@ -1,0 +1,7 @@
+require("user.options")
+require("user.lazy")
+require("user.autocommands")
+require("user.vimcmd")
+require("user.hao_rust")
+require("user.hao_play")
+require("user.keymaps")

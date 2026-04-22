@@ -1,0 +1,8 @@
+layout {
+    pane {
+        // panes can have arguments inside child-braces
+        // command "nvim"
+        // args "/tmp/tmp.txt"
+        cwd "/tmp/"
+    }
+}

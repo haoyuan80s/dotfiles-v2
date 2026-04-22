@@ -1,0 +1,13 @@
+
+layout {
+   pane size=1 borderless=true {
+       plugin location="zellij:compact-bar"
+   }
+   pane {
+        cwd "/tmp/"
+        command "nvim"
+        args "/tmp/tmp.md"
+        close_on_exit true
+    }
+}
+

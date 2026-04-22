@@ -1,0 +1,13 @@
+layout {
+    pane {
+        cwd "/tmp/"
+        command "nvim"
+        args "/tmp/tmp.py"
+        close_on_exit true
+    }
+    pane {
+        cwd "/tmp/"
+        command "btm"
+        close_on_exit true
+    }
+}

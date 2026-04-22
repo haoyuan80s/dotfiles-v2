@@ -1,0 +1,89 @@
+-- local configs = require("nvim-treesitter.configs")
+
+-- configs.setup {
+--   indent = {
+--     enable = true
+--   },
+--   ensure_installed = {
+--     "c", "lua", "rust", "nix", "bash", "fish", "python", "haskell", "vim",
+--     "vimdoc", "query",
+--     "git_rebase", "gitcommit", "comment", "json", "yaml", "toml", "html",
+--   },
+--   sync_install = false,
+--   auto_install = true,
+--   ignore_install = { "javascript" },
+--   highlight = {
+--     enable = true,
+--     disable = function(_, buf)
+--       local max_filesize = 100 * 1024 -- 100 KB
+--       local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+--       if ok and stats and stats.size > max_filesize then
+--         return true
+--       end
+--     end,
+--     additional_vim_regex_highlighting = false,
+--   },
+
+
+--   incremental_selection = {
+--     enable = true,
+--     keymaps = {
+--       init_selection = false,
+--       node_incremental = "]",
+--       node_decremental = "[",
+--       scope_incremental = false,
+--     },
+--   },
+
+--   textobjects = {
+--     swap = {
+--       enable = true,
+--       swap_next = {
+--         ["gsa"] = "@parameter.inner",
+--       },
+--       swap_previous = {
+--         ["gsA"] = "@parameter.inner",
+--       },
+--     },
+--     select = {
+--       enable = true,
+--       lookahead = false,
+--       keymaps = {
+--         ["aa"] = "@parameter.outer",
+--         ["ia"] = "@parameter.inner",
+--         ["af"] = "@function.outer",
+--         ["if"] = "@function.inner",
+--         ["as"] = "@class.outer",
+--         ["is"] = "@class.inner",
+--       },
+--       selection_modes = {
+--         ['@parameter.outer'] = 'v', -- charwise
+--         ['@function.outer'] = 'V',  -- linewise
+--         ['@class.outer'] = '<c-v>', -- blockwise
+--       },
+--       include_surrounding_whitespace = true,
+--     },
+--     move = {
+--       enable = true,    -- prefer unimpare
+--       set_jumps = true, -- whether to set jumps in the jumplist
+--       goto_next_start = {
+--         ["]f"] = "@function.outer",
+--         -- ["]s"] = "@statement.outer",
+--         ["]c"] = "@class.outer",
+--       },
+--       goto_next_end = {
+--         ["]F"] = "@function.outer",
+--         ["]C"] = "@class.outer",
+--       },
+--       goto_previous_start = {
+--         ["[f"] = "@function.outer",
+--         -- ["[s"] = "@statement.outer",
+--         ["[c"] = "@class.outer",
+--       },
+--       goto_previous_end = {
+--         ["[F"] = "@function.outer",
+--         ["[C"] = "@class.outer",
+--       },
+--     },
+--   },
+-- }
