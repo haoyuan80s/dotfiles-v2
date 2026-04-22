@@ -1,0 +1,13 @@
+[tools]
+node = "latest"
+python = "3.12"
+bun = "latest"
+terraform = "latest"
+
+[settings]
+python.uv_venv_auto = true
+experimental = true
+idiomatic_version_file_enable_tools = ["python"]
+
+[env]
+_.file = '.env'

@@ -1,0 +1,63 @@
+;; config guide: https://github.com/jtroo/kanata/blob/main/docs/config.adoc
+;; met == cmd in mac
+
+
+(defalias
+  act (tap-hold-press 200 500 S-tab lsft)
+  sft (switch
+    ((or (input real lmet) (input real caps))) @act break
+    () lsft break
+  )
+)
+
+(defcfg
+  process-unmapped-keys yes
+  concurrent-tap-hold yes
+  danger-enable-cmd yes
+  macos-dev-names-include (
+    "Apple Internal Keyboard / Trackpad"
+  )
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  sft z    x    c    v    b    n    m    ,    .    /    rsft
+  fn lctl lalt lmet            spc             rmet ralt del rctl
+)
+
+(deflayer default
+  caps   🔅   🔆   _    _    _    _    ◀◀   ▶⏸   ▶▶   🔇   🔉   🔊
+  grv    1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab    q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @caps  a    s    d    f    g    h    j    k    l    ;    '    ret
+  @sft  z    x    c    v    b    n    m    ,    .    /    rsft
+  @fn @lctl  lalt @lmet            spc            rmet ralt del @fn
+)
+
+(deflayer fn
+  caps   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12 
+  grv    1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab    q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @caps  a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft  z    x    c    v    b    n    m    ,    .    /    rsft
+  @fn @lctl  lalt  @lmet           spc            rmet ralt  del @fn
+)
+
+(defoverrides
+  (lmet h) (left)
+  (lmet j) (down)
+  (lmet k) (up)
+  (lmet l) (right)
+  (lctl lmet lalt spc) (lmet lsft lctl 4) ;; screen shot
+)
+
+
+(defalias
+  caps  (tap-hold-press 200 500 esc lctl)
+  lmet  (tap-hold-press 200 500 A-0 lmet) ;; A-0 is as leader key for zellij
+  lctl  (tap-hold-press 200 500 A-9 (multi lctl lmet lalt)) ;; A-9 is the leader for yabai/skhd
+  fn    (tap-hold-press 200 500 fn (layer-while-held  fn))
+)
