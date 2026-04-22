@@ -107,7 +107,7 @@ which_key.add {
   { "<leader>cd",     "<cmd>lua vim.diagnostic.open_float()<CR>",        desc = "Float Diagnostics", },
   { "<leader>cv", "<cmd>lua ToggleVirtualText()<cr>",
     desc = "Document Diagnostics", },
-  { "<leader>cL", "<cmd>lua vim.lsp.codelens.refresh()<cr>",
+  { "<leader>cL", "<cmd>lua vim.lsp.codelens.enable(true, { bufnr = bufnr })<cr>",
     desc = "CodeLens refresh", },
   { "<leader>ca", function() vim.lsp.buf.code_action() end, desc = "Code Action" },
   { "<leader>cb", "<cmd>DapToggleBreakpoint<cr>",
