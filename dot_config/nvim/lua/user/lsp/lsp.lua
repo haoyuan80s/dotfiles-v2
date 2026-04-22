@@ -16,17 +16,30 @@ vim.lsp.config('basedpyright',
 )
 
 vim.lsp.enable('clangd')
-
-vim.lsp.enable('lua_ls')
 vim.lsp.config('lua_ls', {
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { 'vim' },
-      },
-    }
-  }
+  root_dir = function(bufnr, on_dir)
+    local fname = vim.api.nvim_buf_get_name(bufnr)
+    local root = vim.fs.root(fname, {
+      '.git',
+      '.luarc.json',
+      '.luarc.jsonc',
+      '.luacheckrc',
+      'stylua.toml',
+      'selene.toml',
+      'init.lua',
+    })
+
+    if root and root ~= vim.env.HOME then
+      on_dir(root)
+      return
+    end
+
+    -- Refuse to start for files outside a real project root
+    on_dir(nil)
+  end,
 })
+vim.lsp.enable('lua_ls')
+
 -- vim.lsp.enable("sourcekit")
 -- vim.lsp.config("sourcekit", {
 --   root_dir = function(_, callback)
