@@ -1,0 +1,26 @@
+add_newline = false
+
+[time]
+disabled = false
+format = '[\[$time\]]($style) '
+time_format = "%T"
+utc_time_offset = "-7"
+
+[git_status]
+disabled = true
+
+[python]
+disabled = false
+
+# [rust]
+# disabled = true
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+# [character]
+# success_symbol = ''             # normal prompt
+# error_symbol = '[ x](bold red)' # used if previous command failed
