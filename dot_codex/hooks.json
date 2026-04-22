@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -lc 'PANE_ID=\"${ZELLIJ_PANE_ID:-}\"; terminal-notifier -title \"Codex\" -message \"Pane: ${ZELLIJ_PANE_NAME:-not-in-zellij}\" -activate \"org.alacritty\" -execute \"sh -lc \\\"open -a Alacritty; sleep 0.2; test -n \\\"$PANE_ID\\\" && zellij action focus-pane-id terminal_$PANE_ID\\\"\"'"
+          }
+        ]
+      }
+    ]
+  }
+}
