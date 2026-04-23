@@ -1,6 +1,5 @@
 local Snacks = require("snacks")
 local which_key = require("which-key")
-local gitsigns = require('gitsigns')
 
 vim.cmd [[
 function! QuitUnmodifialbe()
@@ -25,30 +24,6 @@ function ToggleWrap()
     print("Line wrap ON")
   end
 end
-
-local function code_action()
-  if vim.bo.filetype == "rust" then
-    vim.cmd.RustLsp('codeAction')
-  else
-    vim.lsp.buf.code_action()
-  end
-end
-
-local function get_git_root()
-  -- Try to run `git rev-parse` to get the root
-  local git_cmd = { "git", "rev-parse", "--show-toplevel" }
-  local handle = io.popen(table.concat(git_cmd, " "))
-  if handle then
-    local result = handle:read("*a")
-    handle:close()
-    if result then
-      print(vim.fn.trim(result))
-      return vim.fn.trim(result)
-    end
-  end
-  return nil -- not a git repo
-end
-
 
 which_key.add {
   { "<C-W>1",            "1<C-W>w",                 desc = "Go to window 1", },
@@ -170,6 +145,31 @@ which_key.add {
     desc = "Copy file path with line or line range",
   },
   { "<leader>yF",     '<cmd>let @+ = expand("%:p")<CR><esc>', desc = "Copy file path", },
+  {
+    "<leader>yl",
+    function()
+      local path = vim.fn.expand("%:p")
+      local mode = vim.fn.mode()
+
+      if mode == "v" or mode == "V" or mode == "\22" then
+        local l1 = vim.fn.line("v")
+        local l2 = vim.fn.line(".")
+        local start_line = math.min(l1, l2)
+        local end_line = math.max(l1, l2)
+
+        if start_line == end_line then
+          vim.fn.setreg("+", string.format("%s:%d", path, start_line))
+        else
+          vim.fn.setreg("+", string.format("%s:%d-%d", path, start_line, end_line))
+        end
+      else
+        local line = vim.fn.line(".")
+        vim.fn.setreg("+", string.format("%s:%d", path, line))
+      end
+    end,
+    mode = { "n", "x" },
+    desc = "Copy file path with line number",
+  },
   { "<leader>y<c-f>", '<cmd>CopyGitPath<CR>',                 desc = "Copy file git path", },
   { "<leader>yf",     '<cmd>let @+ = expand("%:n")<CR><esc>', desc = "Copy file path", },
 
