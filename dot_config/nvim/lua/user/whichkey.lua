@@ -1,6 +1,7 @@
 local Snacks = require("snacks")
 local which_key = require("which-key")
 
+
 vim.cmd [[
 function! QuitUnmodifialbe()
     if !&modifiable

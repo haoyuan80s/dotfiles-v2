@@ -1,5 +1,16 @@
 {
   "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PANE_ID=\"${ZELLIJ_PANE_ID:-}\"; PANE_NAME=\"${ZELLIJ_PANE_NAME:-not-in-zellij}\"; lnotify --title \"Claude Code\" --message \"Pane: $PANE_NAME\" --exec \"sh -lc 'test -n \\\"$PANE_ID\\\" && zellij action focus-pane-id terminal_$PANE_ID'\""
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "matcher": "",
