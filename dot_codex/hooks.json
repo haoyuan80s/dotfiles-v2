@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "PANE_ID=\"${ZELLIJ_PANE_ID:-}\"; PANE_NAME=\"${ZELLIJ_PANE_NAME:-not-in-zellij}\"; lnotify --title \"Codex\" --message \"Pane: $PANE_NAME\" --exec \"sh -lc 'test -n \\\"$PANE_ID\\\" && zellij action focus-pane-id terminal_$PANE_ID'\""
+            "command": "PANE_ID=\"${ZELLIJ_PANE_ID:-}\"; PANE_NAME=\"${ZELLIJ_PANE_NAME:-not-in-zellij}\"; lnotify --title \"Codex\" --message \"Pane: $PANE_NAME\" --exec \"sh -lc 'if test -n \\\"$PANE_ID\\\"; then open -a Alacritty; zellij action focus-pane-id terminal_$PANE_ID; fi'\""
           }
         ]
       }
@@ -15,7 +15,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "PANE_ID=\"${ZELLIJ_PANE_ID:-}\"; PANE_NAME=\"${ZELLIJ_PANE_NAME:-not-in-zellij}\"; lnotify --title \"Codex\" --message \"Pane: $PANE_NAME\" --exec \"sh -lc 'test -n \\\"$PANE_ID\\\" && zellij action focus-pane-id terminal_$PANE_ID'\""
+            "command": "PANE_ID=\"${ZELLIJ_PANE_ID:-}\"; PANE_NAME=\"${ZELLIJ_PANE_NAME:-not-in-zellij}\"; lnotify --title \"Codex\" --message \"Pane: $PANE_NAME\" --exec \"sh -lc 'if test -n \\\"$PANE_ID\\\"; then open -a Alacritty; zellij action focus-pane-id terminal_$PANE_ID; fi'\""
           }
         ]
       }
