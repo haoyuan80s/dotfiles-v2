@@ -145,7 +145,7 @@ which_key.add {
     mode = { "n", "v" },
     desc = "Copy file path with line or line range",
   },
-  { "<leader>yF",     '<cmd>let @+ = expand("%:p")<CR><esc>', desc = "Copy file path", },
+  { "<leader>yf",     '<cmd>let @+ = expand("%:p")<CR><esc>', desc = "Copy file path", },
   {
     "<leader>yl",
     function()
@@ -172,7 +172,7 @@ which_key.add {
     desc = "Copy file path with line number",
   },
   { "<leader>y<c-f>", '<cmd>CopyGitPath<CR>',                 desc = "Copy file git path", },
-  { "<leader>yf",     '<cmd>let @+ = expand("%:n")<CR><esc>', desc = "Copy file path", },
+  { "<leader>yF",     '<cmd>let @+ = expand("%:n")<CR><esc>', desc = "Copy file path", },
 
   { "<leader>fe", "<cmd>e<cr>",
     desc = "Reedit file", },
