@@ -99,8 +99,8 @@
 ;;  caps             a               s     d     f     g     h     j     k     l     ;     '     ret
     @layer_default   @open_gemini    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX
 
-;;  lsft  z    x     c     v     b   n     m     ,     .     /     rsft
-    XX    XX   XX    XX    XX    XX  XX    XX    XX    XX    XX    XX
+;;  lsft  z    x     c                v     b   n     m     ,     .     /     rsft
+    XX    XX   XX    @open_chatgpt    XX    XX  XX    XX    XX    XX    XX    XX
 
 ;;  lctl    lmet  lalt              spc              ralt  rmet  del   rctl
     @lctl   XX    XX                XX               XX    XX    XX    XX
@@ -140,6 +140,12 @@
     (layer-switch default)
   )
 
+
+  open_chatgpt (multi
+    (cmd bash -c "wmctrl -xa Firefox || firefox")
+    (cmd fish -c "mytab 'https://chatgpt.com'")
+    (layer-switch default)
+  )
 
   open_gemini (multi
     (cmd bash -c "wmctrl -xa Firefox || firefox")
