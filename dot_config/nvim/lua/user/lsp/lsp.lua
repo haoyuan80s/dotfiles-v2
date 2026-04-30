@@ -79,47 +79,66 @@ vim.lsp.enable('lua_ls')
 --   }
 -- })
 
-
 vim.g.rustaceanvim = {
   server = {
-    capabilities = {
-      textDocument = {
-        completion = { completionItem = { insertReplaceSupport = true } },
-      },
-    },
     default_settings = {
       ['rust-analyzer'] = {
-        files = {
-          watcher = 'client',
-        },
-        imports = {
-          granularity = {
-            group = "item",
-          },
-          merge = {
-            glob = false,
-          }
-        },
         cargo = {
-          features = "all",
+          allFeatures = true,
+          target = "aarch64-apple-ios",
         },
-        -- for ignoring the macro-error warning using spacta in the shadow run projects
-        -- diagnostics = {
-        --   disabled = { "macro-error", "unresolved-proc-macro" },
-        -- },
+        check = {
+          command = "check",
+          targets = { "aarch64-apple-ios" },
+        },
         procMacro = {
-          -- ignored = {
-          --   leptos_macro = {
-          --     -- optional: --
-          --     -- "component",
-          --     "server",
-          --   },
-          -- },
+          enable = true,
         },
       },
     },
   },
 }
+
+-- vim.g.rustaceanvim = {
+--   server = {
+--     capabilities = {
+--       textDocument = {
+--         completion = { completionItem = { insertReplaceSupport = true } },
+--       },
+--     },
+--     default_settings = {
+--       ['rust-analyzer'] = {
+--         files = {
+--           watcher = 'client',
+--         },
+--         imports = {
+--           granularity = {
+--             group = "item",
+--           },
+--           merge = {
+--             glob = false,
+--           }
+--         },
+--         cargo = {
+--           features = "all",
+--         },
+--         -- for ignoring the macro-error warning using spacta in the shadow run projects
+--         -- diagnostics = {
+--         --   disabled = { "macro-error", "unresolved-proc-macro" },
+--         -- },
+--         procMacro = {
+--           -- ignored = {
+--           --   leptos_macro = {
+--           --     -- optional: --
+--           --     -- "component",
+--           --     "server",
+--           --   },
+--           -- },
+--         },
+--       },
+--     },
+--   },
+-- }
 
 -- vim.lsp.enable("yamlls")
 vim.lsp.enable("jsonls", {
