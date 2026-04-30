@@ -1,0 +1,119 @@
+;; end spec https://github.com/end-format/end
+;; Goku tutorial https://github.com/yqrashawn/GokuRakuJoudo/blob/master/tutorial.md
+; https://github.com/yqrashawn/GokuRakuJoudo/blob/master/examples.org
+;; Overwrite the default karabiner element profile or using :profile config
+
+    ;; !  | means mandatory
+    ;; #  | means optional
+    ;; C  | left_command
+    ;; T  | left_control
+    ;; O  | left_option
+    ;; S  | left_shift
+    ;; F  | fn
+    ;; Q  | right_command
+    ;; W  | right_control
+    ;; E  | right_option
+    ;; R  | right_shift
+    ;; P  | caps_lock
+    ;; !! | mandatory command + control + optional + shift (hyper)
+    ;; ## | optional any
+
+{:profiles {:Default {:default true
+                      :sim     300
+                      :delay   1000
+                      :alone   500
+                      :held    500}}
+ :layers    {}
+ :applications {
+                :chrome ["com.google.Chrome"]
+                :firefox ["firefox"]
+                :emacs ["org.gnu.Emacs"]
+                :alacritty ["^org\\.alacritty$"]
+                :wezterm ["wezterm"]
+                }
+ :templates {;
+             ; :color-default "/opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
+             ; :color-leader-mode "/opt/homebrew/bin/yabai -m config active_window_border_color 0xFFFF9D63"
+             ; :open "open -a %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
+             ; :foc "/opt/homebrew/bin/yabai -m window --focus %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
+             ; :swap "/opt/homebrew/bin/yabai -m window --swap %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
+             ; :arrange "/opt/homebrew/bin/yabai -m space --layout %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
+             ; :move "/opt/homebrew/bin/yabai -m window --display %s; /opt/homebrew/bin/yabai -m display --focus %s; %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
+             ; :fullscreen "/opt/homebrew/bin/yabai -m window --toggle native-fullscreen; /opt/homebrew/bin/yabai -m display --focus %s; %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
+             ; :rotate "/opt/homebrew/bin/yabai -m space --rotate 90; /opt/homebrew/bin/yabai -m display --focus %s; %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
+             }
+ :main [
+        {:des "command" :rules [[:##left_command :left_command nil {:alone :!O0}]] }
+        {:des "option" :rules [[:##left_option :left_option nil {:alone :!O9}]] }
+        ; {:des "wezterm" :rules [:wezterm
+        ;                           [:!Cperiod :f7]
+        ;                           [:!Ccomma :f6]
+        ;                           [:!Ttab :f8]
+        ;                           [:!Tleft_shift :f9]
+        ;                           [:!Tgrave_accent_and_tilde :f10]
+        ;                           [:!Cs [:escape :spacebar :f :s]]
+        ;                           ] }
+        {:des "alacritty" :rules [:alacritty
+                                  [:!Tspacebar :f5]
+                                  [:!Ccomma :f6]
+                                  [:!Cperiod :f7]
+                                  [:right_command :!Tnon_us_pound]
+                                  [:!CSh :f9]
+                                  [:!CSl :f8]
+                                  [:!Ttab :f10]
+                                  [:!Tgrave_accent_and_tilde :f11]
+                                  [:!Cslash :f12]
+                                  [:!Cs [:escape :spacebar :f :s]] ; nvim save
+                                  ] }
+        {:des "caps_lock" :rules [[:##caps_lock :left_control nil {:alone :escape}]] }
+        ; {:des "return_or_enter" :rules [[:##return_or_enter :left_control nil {:alone :return_or_enter}]] }
+        ; {:des "enter" :rules [[:##return_or_enter :left_option nil {:alone :return_or_enter}]] }
+        {:des "control to hyper" :rules [[:##left_control :!QWEleft_control nil {:alone :!O6}]]}
+        {:des "firefox" :rules [:firefox
+                               ; [:!Tleft_shift :!Tleft_shift nil {:alone :!TStab}]
+                               ]}
+        {:des "chrome" :rules [:chrome
+                               ; [:!Tleft_shift :!Tleft_shift nil {:alone :!TStab}]
+                               ; [:!Tright_shift :!Tright_shift nil {:alone :!TStab}]
+                               [:!Tn :down_arrow]
+                               [:!Tp :up_arrow]
+                               [:!Tgrave_accent_and_tilde :!CSa]]}
+        {:des "SS_to_caps_lock" :rules [[:!S#Pright_shift :caps_lock] [:!R#Pleft_shift :caps_lock]]}
+        {:des "command + backspace" :rules
+         [
+          [:!CS##delete_or_backspace :!F##delete_or_backspace]
+          ]}
+
+        {:des "hyper 1 to cleanup personal folder"
+             :rules [[:!QWE1 "rm -r ~/personal && mkdir ~/personal"]]}
+
+        {:des "command + utils" :rules
+         [
+          [:!C##h :left_arrow]
+          [:!C##j :down_arrow]
+          [:!C##k :up_arrow]
+          [:!C##l :right_arrow]
+          [:!Ci :!O8] ; change input method
+          [:!Tleft_shift :!Tleft_shift nil {:alone :!TStab}]   ; shortcuts for pressing command+shift-tab
+          [:!Cleft_shift :!Cleft_shift nil {:alone :!CStab}]   ;
+          [:!Tright_shift :!Tright_shift nil {:alone :!TStab}] ;
+          [:!Cright_shift :!Cright_shift nil {:alone :!CStab}] ;
+          ; [:left_shift :left_shift nil {:alone :!Stab}]   ; shortcuts for pressing command+shift-tab
+          ]}
+
+
+        ; {:des "asdfjkl;" :rules [
+        ;                          [:##a :left_control nil {:alone :a}]
+        ;                          [:##s :left_option nil {:alone :s}]
+        ;                          [:##d :left_shift nil {:alone :d}]
+        ;                          [:##f :left_command nil {:alone :f}]
+
+
+        ;                          [:##j :right_command nil {:alone :j}]
+        ;                          [:##k :right_shift nil {:alone :k}]
+        ;                          [:##l :right_option nil {:alone :l}]
+        ;                          [:##semicolon :right_control nil {:alone :semicolon}]
+        ;                          ] }
+        ]
+ }
+
