@@ -31,28 +31,10 @@
                 :alacritty ["^org\\.alacritty$"]
                 :wezterm ["wezterm"]
                 }
- :templates {;
-             ; :color-default "/opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
-             ; :color-leader-mode "/opt/homebrew/bin/yabai -m config active_window_border_color 0xFFFF9D63"
-             ; :open "open -a %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
-             ; :foc "/opt/homebrew/bin/yabai -m window --focus %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
-             ; :swap "/opt/homebrew/bin/yabai -m window --swap %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
-             ; :arrange "/opt/homebrew/bin/yabai -m space --layout %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
-             ; :move "/opt/homebrew/bin/yabai -m window --display %s; /opt/homebrew/bin/yabai -m display --focus %s; %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
-             ; :fullscreen "/opt/homebrew/bin/yabai -m window --toggle native-fullscreen; /opt/homebrew/bin/yabai -m display --focus %s; %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
-             ; :rotate "/opt/homebrew/bin/yabai -m space --rotate 90; /opt/homebrew/bin/yabai -m display --focus %s; %s; /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF79A1F7"
-             }
+ :templates {}
  :main [
         {:des "command" :rules [[:##left_command :left_command nil {:alone :!O0}]] }
         {:des "option" :rules [[:##left_option :left_option nil {:alone :!O9}]] }
-        ; {:des "wezterm" :rules [:wezterm
-        ;                           [:!Cperiod :f7]
-        ;                           [:!Ccomma :f6]
-        ;                           [:!Ttab :f8]
-        ;                           [:!Tleft_shift :f9]
-        ;                           [:!Tgrave_accent_and_tilde :f10]
-        ;                           [:!Cs [:escape :spacebar :f :s]]
-        ;                           ] }
         {:des "alacritty" :rules [:alacritty
                                   [:!Tspacebar :f5]
                                   [:!Ccomma :f6]
@@ -66,8 +48,6 @@
                                   [:!Cs [:escape :spacebar :f :s]] ; nvim save
                                   ] }
         {:des "caps_lock" :rules [[:##caps_lock :left_control nil {:alone :escape}]] }
-        ; {:des "return_or_enter" :rules [[:##return_or_enter :left_control nil {:alone :return_or_enter}]] }
-        ; {:des "enter" :rules [[:##return_or_enter :left_option nil {:alone :return_or_enter}]] }
         {:des "control to hyper" :rules [[:##left_control :!QWEleft_control nil {:alone :!O6}]]}
         {:des "firefox" :rules [:firefox
                                ; [:!Tleft_shift :!Tleft_shift nil {:alone :!TStab}]
@@ -101,19 +81,9 @@
           ; [:left_shift :left_shift nil {:alone :!Stab}]   ; shortcuts for pressing command+shift-tab
           ]}
 
-
-        ; {:des "asdfjkl;" :rules [
-        ;                          [:##a :left_control nil {:alone :a}]
-        ;                          [:##s :left_option nil {:alone :s}]
-        ;                          [:##d :left_shift nil {:alone :d}]
-        ;                          [:##f :left_command nil {:alone :f}]
-
-
-        ;                          [:##j :right_command nil {:alone :j}]
-        ;                          [:##k :right_shift nil {:alone :k}]
-        ;                          [:##l :right_option nil {:alone :l}]
-        ;                          [:##semicolon :right_control nil {:alone :semicolon}]
-        ;                          ] }
+        {:des "left ctrl to hyper" :rules
+         [:##left_control :!CTleft_option nil {:alone :!O9}]
+         }
         ]
  }
 
