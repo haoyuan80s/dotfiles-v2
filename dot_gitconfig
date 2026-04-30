@@ -1,0 +1,58 @@
+[user]
+  name = Hao Yuan
+  email = haoyuan80s@gmail.com
+[alias]
+  cl = clone --depth=1
+  st = status
+  d = diff
+  ci = commit
+  uncommit = reset --soft HEAD^
+  unamend = reset HEAD@{1}
+  shelve = stash
+  she = stash
+  br = branch
+  ; sl = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+  sl = log --all --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+  amd = commit --amend
+  amend = commit --amend
+  amdn = commit --amend --no-edit
+  revert = reset -p
+  rev = reset -p
+  sc = switch -c
+; [core]
+;     ignorecase = false
+
+[core]
+    pager = delta
+    ignorecase = false
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+
+[merge]
+    conflictStyle = zdiff3
+
+[http]
+	sslBackend = openssl
+	sslVerify = false
+	postBuffer = 524288000
+[pull]
+    rebase = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential]
+	helper =
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[credential "https://huggingface.co"]
+	provider = generic
+[credential "http://127.0.0.1:1087"]
+	provider = generic
