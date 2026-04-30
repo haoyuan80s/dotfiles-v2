@@ -1,0 +1,196 @@
+# https://nikitabobko.github.io/AeroSpace/config-examples/default-config.toml
+# https://nikitabobko.github.io/AeroSpace/guide
+
+config-version = 2
+after-startup-command = []
+start-at-login = true
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+accordion-padding = 0
+# Possible values: tiles|accordion
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+automatically-unhide-macos-hidden-apps = false
+persistent-workspaces = ["1", "2", "3"]
+on-mode-changed = []
+
+[workspace-to-monitor-force-assignment]
+1 = 1 # Workspace 1 will always open on the first monitor (Monitor 1)
+2 = 2 # Workspace 2 will always open on the second monitor (Monitor 2)
+3 = 3 # Workspace 3 will always open on the third monitor (Monitor 3)
+
+[key-mapping]
+preset = 'qwerty'
+
+[gaps]
+inner.horizontal = 0
+inner.vertical = 0
+outer.left = 0
+outer.bottom = 0
+outer.top = 0
+outer.right = 0
+
+# =========================================================
+# Global Shortcuts (The "Shot Cut" section)
+# =========================================================
+[mode.main.binding]
+# Enter the "Active" mode (Equivalent to :: default : active @)
+alt-9 = 'mode active'
+cmd-ctrl-alt-1 = 'workspace 1'
+cmd-ctrl-alt-2 = 'workspace 2'
+cmd-ctrl-alt-3 = 'workspace 3'
+
+# App Shortcuts
+cmd-ctrl-alt-c = 'exec-and-forget open -a "Codex"'
+cmd-ctrl-alt-b = 'exec-and-forget open -a "Google Chrome"'
+cmd-ctrl-alt-v = 'exec-and-forget open -a "Neovide"'
+cmd-ctrl-alt-a = 'exec-and-forget open -a "Alacritty"'
+cmd-ctrl-alt-shift-a = 'exec-and-forget open -a "Alfred Preferences"'
+
+# =========================================================
+# Mode: Active (:: active @)
+# =========================================================
+[mode.active.binding]
+esc = 'mode main'
+
+# Navigation to sub-modes
+t = 'mode to'
+l = 'mode layout'
+f = 'mode focus'
+s = 'mode swap'
+n = 'mode note'
+a = 'mode ai'
+shift-r = ['reload-config', 'mode main']
+
+# Immediate Actions (Move window to monitor & focus it, then exit mode)
+1 = ['move-node-to-monitor 1', 'focus-monitor 1', 'mode main']
+2 = ['move-node-to-monitor 2', 'focus-monitor 2', 'mode main']
+3 = ['move-node-to-monitor 3', 'focus-monitor 3', 'mode main']
+
+shift-1 = ['move-node-to-workspace 1', 'mode main']
+shift-2 = ['move-node-to-workspace 2', 'mode main']
+shift-3 = ['move-node-to-workspace 3', 'mode main']
+
+# Zoom/Fullscreen
+z = ['fullscreen', 'mode main']
+# shift-z = ['macos-native-fullscreen', 'mode main']
+
+
+# =========================================================
+# Mode: To (:: to @)
+# =========================================================
+[mode.to.binding]
+esc = 'mode main'
+alt-9 = 'mode active' # Go back up one level
+
+# Move window to monitor, focus monitor, exit to default
+1 = ['move-node-to-monitor 1', 'focus-monitor 1', 'mode main']
+2 = ['move-node-to-monitor 2', 'focus-monitor 2', 'mode main']
+3 = ['move-node-to-monitor 3', 'focus-monitor 3', 'mode main']
+
+
+# =========================================================
+# Mode: Window (:: Window @)
+# =========================================================
+[mode.layout.binding]
+esc = 'mode main'
+alt-9 = 'mode active'
+
+# Tiling layouts
+t = ['layout tiles', 'mode main']           # bsp equivalent
+s = ['layout accordion', 'mode main']       # stack equivalent
+f = ['layout floating tiling', 'mode main'] # float equivalent
+
+
+# =========================================================
+# Mode: Focus (:: focus @)
+# =========================================================
+[mode.focus.binding]
+esc = 'mode main'
+alt-9 = 'mode active'
+
+# Directional Focus
+h = ['focus left', 'mode main']
+j = ['focus down', 'mode main']
+k = ['focus up', 'mode main']
+l = ['focus right', 'mode main']
+
+# Focus Monitor (Display)
+1 = ['focus-monitor 1', 'mode main']
+2 = ['focus-monitor 2', 'mode main']
+3 = ['focus-monitor 3', 'mode main']
+4 = ['focus-monitor 4', 'mode main']
+5 = ['focus-monitor 5', 'mode main'] # Assuming you have this many displays
+# ... add 6-9 if you actually have 9 monitors connected
+
+
+# =========================================================
+# Mode: Swap (:: swap @)
+# =========================================================
+[mode.swap.binding]
+esc = 'mode main'
+alt-9 = 'mode active'
+
+# Swap window directionally
+h = ['move left', 'mode main']
+j = ['move down', 'mode main']
+k = ['move up', 'mode main']
+l = ['move right', 'mode main']
+
+
+# =========================================================
+# Mode: Note (:: note @)
+# =========================================================
+[mode.note.binding]
+esc = 'mode main'
+alt-9 = 'mode active'
+
+# Run fish scripts
+j = [
+  'exec-and-forget /opt/homebrew/bin/fish -c "open-daily-note 0"',
+  'mode main',
+]
+n = ['exec-and-forget /opt/homebrew/bin/fish -c "open-main-note"', 'mode main']
+t = ['exec-and-forget /opt/homebrew/bin/fish -c "open-todo-note"', 'mode main']
+1 = [
+  'exec-and-forget /opt/homebrew/bin/fish -c "open-daily-note 1"',
+  'mode main',
+]
+2 = [
+  'exec-and-forget /opt/homebrew/bin/fish -c "open-daily-note 2"',
+  'mode main',
+]
+3 = [
+  'exec-and-forget /opt/homebrew/bin/fish -c "open-daily-note 3"',
+  'mode main',
+]
+shift-1 = [
+  'exec-and-forget /opt/homebrew/bin/fish -c "open-daily-note -1"',
+  'mode main',
+]
+shift-2 = [
+  'exec-and-forget /opt/homebrew/bin/fish -c "open-daily-note -2"',
+  'mode main',
+]
+shift-3 = [
+  'exec-and-forget /opt/homebrew/bin/fish -c "open-daily-note -3"',
+  'mode main',
+]
+
+
+# =========================================================
+# Mode: AI (:: ai @)
+# =========================================================
+[mode.ai.binding]
+esc = 'mode main'
+alt-9 = 'mode active'
+
+# Run fish scripts
+e = [
+  'exec-and-forget /opt/homebrew/bin/fish -c "open-ai excalidraw"',
+  'mode main',
+]
+c = ['exec-and-forget /opt/homebrew/bin/fish -c "open-ai chatgpt"', 'mode main']
+a = ['exec-and-forget /opt/homebrew/bin/fish -c "open-ai google"', 'mode main']
+d = ['exec-and-forget /opt/homebrew/bin/fish -c "open-ai claude"', 'mode main']
