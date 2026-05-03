@@ -1,4 +1,6 @@
 promptToReturnFromSubprocess: false
+os:
+  editPreset: nvim
 git:
   pagers:
     - colorArg: always
