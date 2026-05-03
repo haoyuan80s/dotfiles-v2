@@ -178,13 +178,19 @@ keybinds clear-defaults=true {
         bind "t" { SwitchToMode "tab"; }
 
         bind "tab" { 
-            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/room.wasm" {
-               floating true
-               move_to_focused_tab true
-               ignore_case true
-               quick_jump false 
+            // LaunchOrFocusPlugin "file:~/.config/zellij/plugins/room.wasm" {
+            //    floating true
+            //    move_to_focused_tab true
+            //    ignore_case true
+            //    quick_jump false 
+            // }
+            // SwitchToMode "normal" 
+            LaunchOrFocusPlugin "https://github.com/shihanng/zellij-pane-picker/releases/latest/download/zellij-pane-picker.wasm" {
+                floating true
+                move_to_focused_tab true
             }
             SwitchToMode "normal" 
+
         }
         bind "`" {
             LaunchOrFocusPlugin "session-manager" {
