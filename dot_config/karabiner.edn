@@ -48,7 +48,8 @@
                                   [:!Cs [:escape :spacebar :f :s]] ; nvim save
                                   ] }
         {:des "caps_lock" :rules [[:##caps_lock :left_control nil {:alone :escape}]] }
-        {:des "control to hyper" :rules [[:##left_control :!QWEleft_control nil {:alone :!O6}]]}
+        {:des "control to hyper" :rules [[:##left_control :!QWEleft_control nil {:alone :!O9}]]}
+        ; {:des "control to hyper" :rules [[:##left_control :left_control nil {:alone :!O9}]]}
         {:des "firefox" :rules [:firefox
                                ; [:!Tleft_shift :!Tleft_shift nil {:alone :!TStab}]
                                ]}
@@ -81,9 +82,7 @@
           ; [:left_shift :left_shift nil {:alone :!Stab}]   ; shortcuts for pressing command+shift-tab
           ]}
 
-        {:des "left ctrl to hyper" :rules
-         [:##left_control :!CTleft_option nil {:alone :!O9}]
-         }
+        ; {:des "left ctrl to hyper" :rules [:##left_control :!CTleft_option nil {:alone :!O9}] }
         ]
  }
 

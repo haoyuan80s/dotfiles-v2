@@ -3,13 +3,13 @@ general.import = [
   "~/.config/alacritty/theme.toml",
 ]
 
+[terminal.shell]
+program = "fish"
+args = ["-l"]
 
 [colors.cursor]
 cursor = "0x00DDDD"
-# cursor = "0x00EE00"
 
-# [env]
-# TERM = "xterm-256color"
 [font]
 size = 15
 
