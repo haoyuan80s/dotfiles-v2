@@ -148,17 +148,17 @@ function open-daily-note
   end
   set date (date -v{$offset}d +%F)
   set -x ZELLIJ_SESSION_NAME (cat ~/.zellij_session_name)
-  zellij edit -f "/Users/haoyuan/Library/Mobile Documents/iCloud~md~obsidian/Documents/notes/Journal/$date.md"
+  zellij edit -f "$HOME/notes/Journal/$date.md"
 end
 
 function open-todo-note
   open -a Alacritty
-  zellij edit -f "/Users/haoyuan/Library/Mobile Documents/iCloud~md~obsidian/Documents/notes/todo.md"
+  zellij edit -f "$HOME/notes/todo.md"
 end
 
 function open-main-note
   open -a Alacritty
-  zellij edit -f "/Users/haoyuan/Library/Mobile Documents/iCloud~md~obsidian/Documents/notes/main.md"
+  zellij edit -f "$HOME/notes/main.md"
 end
 
 
