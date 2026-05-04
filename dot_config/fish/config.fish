@@ -3,6 +3,7 @@
 
 
 source ~/.config/fish/env.fish
+source ~/.config/fish/option.fish
 set fish_vi_force_cursor true
 set fish_cursor_visual      block
 set fish_cursor_replace_one underscore
@@ -114,12 +115,11 @@ ulimit -n 10240
 
 
 source ~/.config/fish/keys.fish
-source ~/.config/fish/hao-misc.fish
 source ~/.config/fish/hao-linux.fish
 
 starship init fish | source
-mise activate fish | source
 zoxide init fish --cmd cd | source
+source ~/.config/fish/hao-misc.fish
 
 # function condaconda
 #   source /opt/homebrew/Caskroom/miniforge/base/etc/fish/conf.d/conda.fish
