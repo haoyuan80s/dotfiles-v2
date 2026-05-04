@@ -208,3 +208,26 @@ function mytab --argument site
     end
 end
 
+function pastepng
+    set path "$HOME/notes/attachments/$(date +%Y%m%d_%H%M%S).png"
+    mkdir -p (dirname "$path")
+
+    if not pngpaste "$path"
+        echo "❌ No image found in clipboard, or pngpaste failed."
+        rm -f "$path"
+        afplay /System/Library/Sounds/Basso.aiff &
+        return 1
+    end
+
+    if not test -s "$path"
+        echo "❌ pngpaste created an empty file."
+        rm -f "$path"
+        afplay /System/Library/Sounds/Basso.aiff &
+        return 1
+    end
+
+    printf "%s" "$path" | pbcopy
+
+    afplay /System/Library/Sounds/Glass.aiff &
+    echo "$path"
+end
