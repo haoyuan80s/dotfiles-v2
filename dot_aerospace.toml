@@ -45,7 +45,7 @@ cmd-ctrl-alt-3 = 'workspace 3'
 cmd-ctrl-alt-c = 'exec-and-forget open -a "Codex"'
 cmd-ctrl-alt-b = 'exec-and-forget open -a "Google Chrome"'
 cmd-ctrl-alt-v = 'exec-and-forget open -a "Neovide"'
-cmd-ctrl-alt-a = 'exec-and-forget open -a "Alacritty"'
+cmd-ctrl-alt-t = 'exec-and-forget open -a "Alacritty"'
 cmd-ctrl-alt-shift-a = 'exec-and-forget open -a "Alfred Preferences"'
 
 # =========================================================

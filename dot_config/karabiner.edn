@@ -18,11 +18,13 @@
     ;; !! | mandatory command + control + optional + shift (hyper)
     ;; ## | optional any
 
-{:profiles {:Default {:default true
+{:profiles {:default {:default true
                       :sim     300
                       :delay   1000
                       :alone   500
                       :held    500}}
+
+ :devices   {:usb-kb [{:vendor_id 1241 :product_id 17733}] :bt-kb [{:vendor_id 2652 :product_id 34050}]}
  :layers    {}
  :applications {
                 :chrome ["com.google.Chrome"]
@@ -33,7 +35,28 @@
                 }
  :templates {}
  :main [
+        {:des "Swap CMD and OPT for USB Keyboard" 
+         :rules[:usb-kb
+                 ;; Physical Windows key (left_command) becomes option, retaining your option's alone rule
+                 [:##left_command :left_option nil {:alone :!O9}]
+                 ;; Physical Alt key (left_option) becomes command, retaining your command's alone rule
+                 [:##left_option :left_command nil {:alone :!O0}]
+                 
+                 ;; (Optional) Swap the right side too
+                 [:##right_command :right_option][:##right_option :right_command]]}
+
+        {:des "Swap CMD and OPT for BT Keyboard" 
+         :rules[:bt-kb
+                 ;; Physical Windows key (left_command) becomes option, retaining your option's alone rule
+                 [:##left_command :left_option nil {:alone :!O9}]
+                 ;; Physical Alt key (left_option) becomes command, retaining your command's alone rule
+                 [:##left_option :left_command nil {:alone :!O0}]
+                 
+                 ;; (Optional) Swap the right side too
+                 [:##right_command :right_option][:##right_option :right_command]]}
+
         {:des "command" :rules [[:##left_command :left_command nil {:alone :!O0}]] }
+        ; {:des "cmd+tab / cmd+shift+tab -> alt-tab" :rules [[:!Ctab :!Otab] [:!Cleft_shift :!Oleft_shift]]}
         {:des "option" :rules [[:##left_option :left_option nil {:alone :!O9}]] }
         {:des "alacritty" :rules [:alacritty
                                   [:!Tspacebar :f5]
@@ -49,6 +72,7 @@
                                   ] }
         {:des "caps_lock" :rules [[:##caps_lock :left_control nil {:alone :escape}]] }
         {:des "control to hyper" :rules [[:##left_control :!QWEleft_control nil {:alone :!O9}]]}
+
         ; {:des "control to hyper" :rules [[:##left_control :left_control nil {:alone :!O9}]]}
         {:des "firefox" :rules [:firefox
                                ; [:!Tleft_shift :!Tleft_shift nil {:alone :!TStab}]
@@ -85,4 +109,3 @@
         ; {:des "left ctrl to hyper" :rules [:##left_control :!CTleft_option nil {:alone :!O9}] }
         ]
  }
-

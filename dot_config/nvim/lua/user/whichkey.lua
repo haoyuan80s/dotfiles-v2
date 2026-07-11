@@ -26,6 +26,71 @@ function ToggleWrap()
   end
 end
 
+local function get_end_col(line, col)
+  if #line == 0 then
+    return 0
+  end
+
+  col = math.min(col, #line)
+  local prefix_char_count = vim.fn.strchars(string.sub(line, 1, col - 1))
+  local char = vim.fn.strcharpart(line, prefix_char_count, 1)
+  return col + #char - 1
+end
+
+local function get_range_lines(mode)
+  local start_line, end_line, start_col, end_col
+
+  if mode == "v" or mode == "V" or mode == "\22" or mode == "s" or mode == "S" or mode == "\19" then
+    local l1 = vim.fn.line("v")
+    local l2 = vim.fn.line(".")
+    local c1 = vim.fn.col("v")
+    local c2 = vim.fn.col(".")
+
+    if mode == "V" or mode == "S" then
+      start_line = math.min(l1, l2)
+      end_line = math.max(l1, l2)
+    elseif mode == "\22" or mode == "\19" then
+      start_line = math.min(l1, l2)
+      end_line = math.max(l1, l2)
+      start_col = math.min(c1, c2)
+      end_col = math.max(c1, c2)
+    else
+      if l1 < l2 or (l1 == l2 and c1 <= c2) then
+        start_line, end_line = l1, l2
+        start_col, end_col = c1, c2
+      else
+        start_line, end_line = l2, l1
+        start_col, end_col = c2, c1
+      end
+    end
+  else
+    start_line = vim.fn.line(".")
+    end_line = start_line
+  end
+
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+
+  if (mode == "v" or mode == "s") and start_col and end_col then
+    start_col = math.max(start_col, 1)
+    if #lines == 1 then
+      local ec = get_end_col(lines[1], end_col)
+      lines[1] = string.sub(lines[1], start_col, ec)
+    elseif #lines > 1 then
+      lines[1] = string.sub(lines[1], start_col)
+      local ec = get_end_col(lines[#lines], end_col)
+      lines[#lines] = string.sub(lines[#lines], 1, ec)
+    end
+  elseif (mode == "\22" or mode == "\19") and start_col and end_col then
+    start_col = math.max(start_col, 1)
+    for i = 1, #lines do
+      local ec = get_end_col(lines[i], end_col)
+      lines[i] = string.sub(lines[i], start_col, ec)
+    end
+  end
+
+  return start_line, end_line, lines
+end
+
 which_key.add {
   { "<C-W>1",            "1<C-W>w",                 desc = "Go to window 1", },
   { "<C-W>2",            "2<C-W>w",                 desc = "Go to window 2", },
@@ -123,53 +188,52 @@ which_key.add {
   { "<leader>oa",     require("user.hao_play").open_agy,                            desc = "Open agy at line" },
 
   { "<leader>y",      group = "Yank",                                               mode = { "n", "v" } },
+  { "<leader>yf",     '<cmd>let @+ = expand("%:p")<CR><esc>',                       desc = "Copy file path", },
   {
-    "<leader>yl",
+    "<leader>yp",
     function()
       local path = vim.fn.expand("%:p")
-      local mode = vim.fn.mode()
-
-      if mode == "v" or mode == "V" then
-        local start_line = vim.fn.line("v")
-        local end_line   = vim.fn.line(".")
-        if start_line > end_line then
-          start_line, end_line = end_line, start_line
-        end
-        vim.fn.setreg("+", string.format("%s:%d-%d", path, start_line, end_line))
-      else
-        -- normal mode: copy file:path:LINE
-        local line = vim.fn.line(".")
-        vim.fn.setreg("+", string.format("%s:%d", path, line))
-      end
+      vim.fn.setreg("+", path)
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
     end,
-    mode = { "n", "v" },
-    desc = "Copy file path with line or line range",
+    desc = "Copy file path",
   },
-  { "<leader>yf",     '<cmd>let @+ = expand("%:p")<CR><esc>', desc = "Copy file path", },
+  {
+    "<leader>yP",
+    function()
+      local dir = vim.fn.expand("%:p:h")
+      vim.fn.setreg("+", dir)
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+    end,
+    desc = "Copy file dir",
+  },
   {
     "<leader>yl",
     function()
       local path = vim.fn.expand("%:p")
       local mode = vim.fn.mode()
+      local start_line, end_line, lines = get_range_lines(mode)
+      local formatted_lines = {}
 
-      if mode == "v" or mode == "V" or mode == "\22" then
-        local l1 = vim.fn.line("v")
-        local l2 = vim.fn.line(".")
-        local start_line = math.min(l1, l2)
-        local end_line = math.max(l1, l2)
-
-        if start_line == end_line then
-          vim.fn.setreg("+", string.format("%s:%d", path, start_line))
-        else
-          vim.fn.setreg("+", string.format("%s:%d-%d", path, start_line, end_line))
-        end
+      if start_line == end_line then
+        table.insert(formatted_lines, string.format("%s:%d", path, start_line))
       else
-        local line = vim.fn.line(".")
-        vim.fn.setreg("+", string.format("%s:%d", path, line))
+        table.insert(formatted_lines, string.format("%s:%d-%d", path, start_line, end_line))
+      end
+
+      for i, line in ipairs(lines) do
+        local line_num = start_line + i - 1
+        table.insert(formatted_lines, string.format("%d: %s", line_num, line))
+      end
+
+      vim.fn.setreg("+", table.concat(formatted_lines, "\n") .. "\n")
+
+      if mode == "v" or mode == "V" or mode == "\22" or mode == "s" or mode == "S" or mode == "\19" then
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
       end
     end,
-    mode = { "n", "x" },
-    desc = "Copy file path with line number",
+    mode = { "n", "x", "s" },
+    desc = "Copy line/range content with line numbers and file path",
   },
   { "<leader>y<c-f>", '<cmd>CopyGitPath<CR>',                 desc = "Copy file git path", },
   { "<leader>yF",     '<cmd>let @+ = expand("%:n")<CR><esc>', desc = "Copy file path", },
